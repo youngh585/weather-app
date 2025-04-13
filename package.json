@@ -16,10 +16,9 @@
     "url": "https://github.com/youngh585/weather-app/issues"
   },
   "homepage": "https://github.com/youngh585/weather-app#readme",
-  "description": "",
   "dependencies": {
     "live-server": "^1.2.2"
   },
-  "devDependencies": {},
-  "type": "commonjs"
+  "type": "commonjs",
+  "description": ""
 }
