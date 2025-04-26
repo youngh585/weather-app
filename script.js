@@ -23,6 +23,9 @@ async function fetchTemperature(city) {
             const weatherCode = weatherData.current_weather.weathercode; // Get the weather code
             const weatherCondition = mapWeatherCodeToCondition(weatherCode); // Map weather code to condition
 
+            // Log the exact condition returned by the API
+            console.log('Weather Condition:', weatherCondition);  // This will display in the browser console
+
             document.getElementById('temperature').innerText = `Current Temperature in ${city}: ${temperature}°C`;
             document.getElementById('weather-condition').innerText = `Condition: ${weatherCondition}`;
 
@@ -30,7 +33,6 @@ async function fetchTemperature(city) {
             updateWeatherIcon(weatherCondition);
 
         } else {
-            // If city not found, show this message
             document.getElementById('temperature').innerText = 'City not found. Please try again.';
         }
     } catch (error) {
@@ -77,32 +79,80 @@ function mapWeatherCodeToCondition(weatherCode) {
 // Function to update the weather icon based on the condition
 function updateWeatherIcon(condition) {
     const iconElement = document.getElementById("weather-icon");
-    if (condition === "Mainly clear") {
+    iconElement.style.display = "block";
+    if (condition === "Clear") {
         iconElement.src = "icons/clear.png"; // Clear icon
-    } else if (condition === "Cloudy") {
-        iconElement.src = "icons/cloudy.png"; // Cloudy icon
+    } else if (condition === "Mainly clear") {
+        iconElement.src = "icons/clear.png"; // Clear icon
     } else if (condition === "Partly cloudy") {
         iconElement.src = "icons/partly-cloudy.png"; // Partly cloudy icon
-    } else if (condition === "Rain" || condition.includes("rain")) {
+    } else if (condition === "Cloudy") {
+        iconElement.src = "icons/cloudy.png"; // Cloudy icon
+    } else if (condition === "Fog") {
+        iconElement.src = "icons/fog.png"; // Fog icon
+    } else if (condition === "Depositing rime fog") {
+        iconElement.src = "icons/fog.png"; // Fog icon
+    } else if (condition === "Light drizzle") {
+        iconElement.src = "icons/drizzle.png"; // Drizzle icon
+    } else if (condition === "Moderate drizzle") {
+        iconElement.src = "icons/drizzle.png"; // Drizzle icon
+    } else if (condition === "Heavy drizzle") {
+        iconElement.src = "icons/drizzle.png"; // Drizzle icon
+    } else if (condition === "Light freezing drizzle") {
+        iconElement.src = "icons/drizzle.png"; // Drizzle icon
+    } else if (condition === "Heavy freezing drizzle") {
+        iconElement.src = "icons/drizzle.png"; // Drizzle icon
+    } else if (condition === "Light rain") {
         iconElement.src = "icons/rainy.png"; // Rainy icon
-    } else if (condition === "Snow") {
+    } else if (condition === "Moderate rain") {
+        iconElement.src = "icons/rainy.png"; // Rainy icon
+    } else if (condition === "Heavy rain") {
+        iconElement.src = "icons/heavy rain.png"; // Rainy icon
+    } else if (condition === "Light freezing rain") {
+        iconElement.src = "icons/rainy.png"; // Rainy icon
+    } else if (condition === "Heavy freezing rain") {
+        iconElement.src = "icons/heavy rain.png"; // Rainy icon
+    } else if (condition === "Light snow") {
         iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Moderate snow") {
+        iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Heavy snow") {
+        iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Snow grains") {
+        iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Light rain showers") {
+        iconElement.src = "icons/rainy.png"; // Rainy icon
+    } else if (condition === "Moderate rain showers") {
+        iconElement.src = "icons/rainy.png"; // Rainy icon
+    } else if (condition === "Heavy rain showers") {
+        iconElement.src = "icons/heavy rain.png"; // Rainy icon
+    } else if (condition === "Light snow showers") {
+        iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Heavy snow showers") {
+        iconElement.src = "icons/snowy.png"; // Snowy icon
+    } else if (condition === "Thunderstorm") {
+        iconElement.src = "icons/thunderstorm.png"; // Thunderstorm icon
+    } else if (condition === "Thunderstorm with light hail") {
+        iconElement.src = "icons/thunderstorm.png"; // Thunderstorm icon
+    } else if (condition === "Thunderstorm with heavy hail") {
+        iconElement.src = "icons/thunderstorm.png"; // Thunderstorm icon
     } else {
-        iconElement.src = "icons/default.png"; // Default icon
+        iconElement.src = "icons/default.png"; // Default icon for unknown conditions
     }
 }
 
 // Function to handle the input and trigger fetchTemperature
 function handleFetchWeather() {
     const city = document.getElementById('city-input').value.trim(); // Get and trim city input
-
-    if (city) {
-        fetchTemperature(city); // If input is valid, fetch weather data
+    const iconElement = document.getElementById("weather-icon");
+    if (!city) {
+        iconElement.style.display = "none";  // Hide the icon if no city is entered
+        document.getElementById('temperature').innerText = 'Please enter a city name.';  // Prompt user
     } else {
-        // If no input, show "Please enter a city name."
-        document.getElementById('temperature').innerText = 'Please enter a city name.';
+        fetchTemperature(city); // If input is valid, fetch weather data
     }
 }
+
 
 // Add event listener to the button
 document.getElementById('fetch-weather').addEventListener('click', handleFetchWeather);
